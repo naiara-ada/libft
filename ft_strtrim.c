@@ -12,16 +12,14 @@
 
 #include "libft.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 static int	check_trim(const char *set, char c)
 {
 	int	i;
-	
+
 	i = 0;
-	while (set[i] != '\0')
+	while (set[i])
 	{
-		
 		if (set[i] == c)
 			return (1);
 		i++;
@@ -31,29 +29,23 @@ static int	check_trim(const char *set, char c)
 
 char	*ft_strtrim(const char *s1, const char *set)
 {
-	int	i;
-	int	j;
-	int	z;
+	int		i;
+	int		j;
+	int		len;
 	char	*str;
 
+	if (!s1 || !set)
+		return (NULL);
 	i = 0;
-	j = ft_strlen(s1) - 1;
-	while (check_trim(set, s1[i]))
-	{
+	len = ft_strlen(s1);
+	j = len - 1;
+	while (s1[i] && check_trim(set, s1[i]))
 		i++;
-	}
-	while (check_trim(set, s1[j]))
+	while (j >= i && check_trim(set, s1[j]))
 		j--;
-	z = 0;
-	str = (char *)malloc(ft_strlen(s1) - i - (ft_strlen(s1) - j));
+	str = (char *)malloc((j - i + 2) * sizeof(char));
 	if (!str)
-		return (0);
-	while (i <= j)
-	{
-		str[z] = s1[i];
-		i++;
-		z++;
-	}
-	
+		return (NULL);
+	ft_strlcpy(str, &s1[i], j - i + 2);
 	return (str);
 }
