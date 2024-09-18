@@ -16,19 +16,22 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t dtsize)
 {
 	size_t	src_size;
 
-	src_size = 0;
-	if (src != NULL)
+	if (!src) 
+		return (0);
+	
+	src_size = ft_strlen(src);
+
+	if (dtsize > 0)
 	{
-		src_size = ft_strlen(src);
-		if (dtsize > (src_size + 1))
+		if (dtsize > src_size + 1)
 		{
-			ft_memcpy(dest, src, src_size + 1);
+			ft_memcpy(dest, src, src_size + 1); 
 		}
-		else if (dtsize != 0)
+		else
 		{
-			ft_memcpy(dest, src, dtsize -1);
+			ft_memcpy(dest, src, dtsize - 1); 
 			dest[dtsize - 1] = '\0';
 		}
 	}
-	return (src_size);
+	return (src_size); 
 }
