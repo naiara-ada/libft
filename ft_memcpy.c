@@ -18,7 +18,7 @@ void	*ft_memcpy(void *dest_str, const void * src_str, size_t n)
 	unsigned char	*dest_str_cp;
 	unsigned char	*src_str_cp;
 	
-	if (!dest_str && !src_str)
+	if (!dest_str || !src_str)
 		return (NULL);
 	dest_str_cp = (unsigned char *) dest_str;
 	src_str_cp =  (unsigned char *) src_str;
@@ -28,5 +28,5 @@ void	*ft_memcpy(void *dest_str, const void * src_str, size_t n)
 		dest_str_cp[i] = src_str_cp[i];
 		i++;
 	}
-	return (dest_str_cp);
+	return (dest_str);
 }
