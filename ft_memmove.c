@@ -18,10 +18,10 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	char	*src_copy;
 	size_t	i;
 
-	if (!dest && !src)
-		return (0);
-	dest_copy = (char *) dest;
-	src_copy = (char *) src;
+	if (!dest || !src)
+		return (NULL);
+	dest_copy = (unsigned char *) dest;
+	src_copy = (const unsigned char *)src;
 	i = 0;
 	if (dest_copy > src_copy)
 		while (n-- > 0)
