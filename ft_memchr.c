@@ -15,11 +15,11 @@
 void	*ft_memchr(const void *s, int c, size_t n)
 {
 	size_t			i;
-	unsigned char	*found_str;
+	const unsigned char	*found_str;
 	unsigned char	ch;
 
 	ch = (unsigned char) c;
-	found_str = (unsigned char *) s;
+	found_str = (const unsigned char *) s;
 	i = 0;
 	while (i < n)
 	{
@@ -27,5 +27,5 @@ void	*ft_memchr(const void *s, int c, size_t n)
 			return ((void *) &found_str[i]);
 		i++;
 	}
-	return (0);
+	return (NULL);
 }
