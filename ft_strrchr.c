@@ -29,5 +29,7 @@ char	*ft_strrchr(const char *str, int c)
 		}
 		i++;
 	}
+	if (character == '\0')
+		return ((char *)&str[i]);
 	return (found_str);
 }
