@@ -19,14 +19,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*str;
 
 	if (!s)
-		return (0);
+		return (NULL);
 	if (start > ft_strlen(s))
-		return (0);
+		return (ft_strdup(" ");
 	if (len > ft_strlen(s + start))
 		len = ft_strlen(s + start);
-	str = malloc(len + 1);
+	str = ft_calloc(len + 1);
 	if (!str)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (i < len)
 	{
