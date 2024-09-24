@@ -34,8 +34,6 @@ char	*ft_strtrim(const char *s1, const char *set)
 	int		len;
 	char	*str;
 
-	if (!s1 || !set)
-		return (NULL);
 	i = 0;
 	len = ft_strlen(s1);
 	j = len - 1;
