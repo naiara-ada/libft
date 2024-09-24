@@ -17,7 +17,6 @@ t_list	*ft_lstlast(t_list *lst)
 	t_list	*lst_copy;
 
 	lst_copy = lst;
-
 	while (lst_copy->next)
 	{
 		lst_copy = lst_copy -> next;
