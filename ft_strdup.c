@@ -20,9 +20,9 @@ char	*ft_strdup(const char *str)
 
 	if (!str)
 		return (NULL);
-	str_copy = malloc(ft_strlen(str) + 1);
+	str_copy = malloc(ft_strlen(str) + 1 * sizeof(char));
 	if (!str_copy)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (str[i] != '\0')
 	{
