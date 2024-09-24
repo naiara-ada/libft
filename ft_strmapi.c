@@ -19,8 +19,6 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	unsigned int	len;
 	char	*result;
 	
-	if (!s || !f)
-		return (0);
 	len = ft_strlen(s);
 	result = malloc((len + 1) * sizeof(char));
 	if (!result)
