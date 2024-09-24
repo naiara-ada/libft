@@ -1,5 +1,5 @@
 NAME := libft.a
-CC := cc
+CC := gcc
 CFLAGS := -Wall -Wextra -Werror
 MY_SOURCES = ft_atoi.c \
 			 ft_bzero.c \
@@ -36,18 +36,37 @@ MY_SOURCES = ft_atoi.c \
 			 ft_tolower.c \
 			 ft_toupper.c 
 
+MY_BONUS = ft_lstadd_back_bonus.c \
+			ft_lstadd_front_bonus.c \
+			ft_lstclear_bonus.c \
+			ft_lstdelone_bonus.c \
+			ft_lstiter_bonus.c \
+			ft_lstlast_bonus.c \
+			ft_lstmap_bonus.c \
+			ft_lstnew_bonus.c \
+			ft_lstsize_bonus.c 			
+
 MY_OBJECTS = $(MY_SOURCES: %.c=%.o)
+
+MY_OBJ_BONUS = $(MY_BONUS: %.c=%.o)
 
 all: $(NAME)
 
 $(NAME): $(MY_OBJECTS)
-	@ar crs -o $(NAME) $(MY_OBJECTS)
+	ar crs -o $(NAME) $(MY_OBJECTS)
+
+bonus: $(MY_OBJECTS) $(MY_OBJ_BONUS)
+	ar crs -o $(NAME) $(MY_OBJECTS) $(MY_OBJ_BONUS)
+
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f *.o
+	rm -f $(MY_OBJECTS) $(MY_OBJ_BONUS)
 
-fclean:
+fclean: clean
 	rm -f $(NAME)
-re:
-	fclean all
+	
+re: fclean all
 
+.PHONY: all clean fclean re bonus
