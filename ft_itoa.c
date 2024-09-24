@@ -11,10 +11,9 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 #include <stdlib.h>
 
-static int	count_digits(int num)
+static int	count_digits(long num)
 {
 	int	count;
 
@@ -34,31 +33,41 @@ static int	count_digits(int num)
 	return (count);
 }
 
+static char	*book_memory(int len)
+{
+	char	*temp;
+
+	temp = malloc((len +1) * sizeof(char));
+	if (!temp)
+		return (NULL);
+	temp[0] = '0';
+	return (temp);
+}
+
 char	*ft_itoa(int n)
 {
 	char	*result;
 	int		len;
 	int		i;
-	
+	long	number;
+
+	number = n;
 	len = count_digits(n);
-	result = malloc((len + 1) * sizeof(char));
-	if (!result)
-		return (0);
-	if (n == 0)
+	result = book_memory(len);
+	if (number == 0)
 		result[0] = '0';
-	if (n < 0)
+	if (number < 0)
 	{
 		result[0] = '-';
-		n *= -1;
+		number *= -1;
 	}
 	i = len - 1;
-	while(n != 0)
+	while (number != 0)
 	{
-		result[i] = (n % 10) + '0';
-		n = n / 10;
+		result[i] = (number % 10) + '0';
+		number = number / 10;
 		i--;
 	}
 	result[len] = '\0';
-	printf("result: %s\n", result);
-	return(result);
+	return (result);
 }
