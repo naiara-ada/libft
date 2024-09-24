@@ -90,6 +90,6 @@ char	**ft_split(char const *s, char c)
 		i++;
 		start = end;
 	}
-	str[i] = '\0';
+	str[i] = NULL;
 	return (str);
 }
