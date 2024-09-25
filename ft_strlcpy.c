@@ -15,16 +15,18 @@
 size_t	ft_strlcpy(char *dest, const char *src, size_t dtsize)
 {
 	size_t	src_size;
+	size_t	i;
 
 	src_size = ft_strlen(src);
-	if (dtsize > (src_size + 1))
-	{
-		ft_memcpy(dest, src, src_size + 1);
-	}
-	else
-	{
-		ft_memcpy(dest, src, dtsize -1);
-		dest[dtsize - 1] = '\0';
+	i = 0;
+	if (dtsize > 0)
+	{	
+		while (i < dtsize - 1 && src[i] != '\0')
+			{
+				dest[i] = src[i];
+				i++;
+			}
+		dest[i] = '\0';
 	}
 	return (src_size);
 }
