@@ -1,7 +1,21 @@
 #include "libft.h"
 #include <stdio.h>
-#include <ctype.h>
+#include <string.h>
 #include <stdlib.h>
+
+void	change_to_uppercase(unsigned int i, char *c)
+{
+	(void)i;  // Evitamos un warning por no usar 'i'
+	if (*c >= 'a' && *c <= 'z')
+		*c = *c - 32;  // Convertir a mayúscula
+}
+char	change_to_uppercase2(unsigned int i, char c)
+{
+	(void)i;  // Evitamos un warning por no usar 'i'
+	if (c >= 'a' && c <= 'z')
+		return (c - 32);  // Convertir a mayúscula
+	return (c);
+}
 
 int main(void)
 {
@@ -45,6 +59,9 @@ int main(void)
     // Pruebas de ft_atoi
     printf("ft_atoi('42') = %d (Expected: 42)\n", ft_atoi("42"));
     printf("ft_atoi('-42') = %d (Expected: -42)\n", ft_atoi("-42"));
+    const char  *texto = "   -5325nb";
+    printf("El string '%s' convertido a número es: %d\n", texto, ft_atoi(texto));
+    printf("Func. original: El string '%s' convertido a número es: %d\n\n", texto, atoi(texto));
 
     // Pruebas de ft_memset
     char mem[10] = "abcdefghi";
@@ -73,6 +90,18 @@ int main(void)
     // Pruebas de ft_strchr
     printf("ft_strchr('hello', 'e') = %s (Expected: 'ello')\n", ft_strchr("hello", 'e'));
     printf("ft_strchr('hello', 'z') = %p (Expected: NULL)\n", ft_strchr("hello", 'z'));
+    char    *string4 = "Hello, World!";
+    char    *result5 = ft_strchr(string4, 'l');
+    char    *result6 = strchr(string4, 'l');
+    if (result5 != NULL && result6 != NULL && result5 == result6)
+    {
+        printf("Dest: %s\n", result5);
+        printf("Func. original:  Dest: %s\n\n", result6);
+    }
+    else if (result5 != result6)
+        printf("Resultados distintos en ft_strchr y strchr.\n\n");
+    else
+        printf("Character not found.\n\n");
 
     // Pruebas de ft_strlcpy
     char dest_strlcpy[10];
@@ -88,6 +117,27 @@ int main(void)
     printf("ft_strrchr('hello', 'l') = %s (Expected: 'lo')\n", ft_strrchr("hello", 'l'));
 
     // Pruebas de ft_memchr
+    const char str[] = "Hola, mundo!";
+    char ch = 'm';
+    char *resultadomem;
+
+    // Llamada a ft_memchr
+    resultadomem = ft_memchr(str, ch, strlen(str));
+
+    // Comprobar si se encontró el carácter
+    if (resultadomem)
+        printf("Carácter '%c' encontrado en la posición: %ld\n", ch, resultadomem - str);
+    else
+        printf("Carácter '%c' no encontrado en la cadena.\n", ch);
+
+    // Prueba con un carácter que no existe en la cadena
+    ch = 'z';
+    resultadomem = ft_memchr(str, ch, strlen(str));
+
+    if (resultadomem)
+        printf("Memchr Carácter '%c' encontrado en la posición: %ld\n", ch, resultadomem - str);
+    else
+        printf("Memchr Carácter '%c' no encontrado en la cadena.\n", ch);
     printf("ft_memchr('abcdef', 'c', 6) = %s (Expected: 'cdef')\n", (char *)ft_memchr("abcdef", 'c', 6));
 
     // Pruebas de ft_memcmp
@@ -121,18 +171,67 @@ int main(void)
     free(joined);
 
     // Pruebas de ft_strtrim
-    char *trimmed = ft_strtrim("  hello  ", " ");
-    printf("ft_strtrim('  hello  ', ' ') = %s (Expected: 'hello')\n", trimmed);
+    char *trimmed = ft_strtrim("  hola que tal  ", " ");
+    printf("ft_strtrim('  hola que tal  ', ' ') = %s (Expected: 'hola que tal')\n", trimmed);
     free(trimmed);
 
     // Pruebas de ft_split
-    char **split_result = ft_split("hello world", ' ');
+    char **split_result = ft_split("chinimala", ' ');
     printf("ft_split('hello world', ' ')[0] = %s (Expected: 'hello')\n", split_result[0]);
     printf("ft_split('hello world', ' ')[1] = %s (Expected: 'world')\n", split_result[1]);
     // Liberar memoria de split
     for (int i = 0; split_result[i] != NULL; i++)
         free(split_result[i]);
     free(split_result);
+    
+    //pruebas de itoa
+    int numeros[] = {1234, -5678, 0, 42, -2147483648};
+    char *resultado;
+    int i;
+    for (i = 0; i < 5; i++)
+    {
+        resultado = ft_itoa(numeros[i]);
+        
+        if (resultado)
+        {
+            printf("Número: %d -> ft_itoa: %s\n", numeros[i], resultado);
+            free(resultado);
+        }
+        else
+        {
+            printf("Error al convertir el número %d\n", numeros[i]);
+        }
+    }
+    
+    //pruebas ft_putchar_fd
+    printf("prueba putchar 'A' y salto linea\n");
+    ft_putchar_fd('A', 1);  // 1 es el file descriptor de la salida estándar
+    ft_putchar_fd('\n', 1); // Salto de línea en la consola
+    
+    //pruebas ft_striteri
+    char strteti[] = "hola, mundo!";
+    printf("-----ft_striteri----\n");
+	printf("Antes: %s\n", strteti);
+	ft_striteri(strteti, change_to_uppercase);
+	printf("Después: %s\n", strteti);
 
-    return 0;
+    //pruebas de strmapi
+    printf("----ft_strmapi-----\n");
+    char strmapi[] = "hola, mundo!";
+	char *resultadomapi;
+
+	// Llamada a ft_strmapi, pasando la función para convertir en mayúscula
+	resultadomapi = ft_strmapi(strmapi, change_to_uppercase2);
+	if (resultado)
+	{
+		printf("Original: %s\n", strmapi);
+		printf("Modificado: %s\n", resultadomapi);
+		free(resultadomapi);  // Liberamos la memoria asignada por ft_strmapi
+	}
+	else
+	{
+		printf("Error al asignar memoria.\n");
+	}
+	
+    return (0);
 }
