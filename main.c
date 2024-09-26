@@ -53,11 +53,11 @@ int main(void)
     printf("ft_tolower('a') = %c (Expected: 'a')\n", ft_tolower('a'));
 
     // Pruebas de ft_strncmp
-    printf("ft_strncmp('abc', 'abc', 3) = %d (Expected: 0)\n", ft_strncmp("abc", "abc", 3));
-    printf("ft_strncmp('abc', 'abd', 3) = %d (Expected: -1)\n", ft_strncmp("abc", "abd", 3));
+    printf("ft_strncmp('abc', 'abc', 3) = %d (Expected: 0)\n", ft_strncmp("abc", "abcfg", 3));
+    printf("ft_strncmp('abc', 'cbd', 3) = %d (Expected: -1)\n", ft_strncmp("", "abc", 5));
 
     // Pruebas de ft_atoi
-    printf("ft_atoi('42') = %d (Expected: 42)\n", ft_atoi("42"));
+    printf("ft_atoi('42') = %d (Expected: 0)\n", ft_atoi("0"));
     printf("ft_atoi('-42') = %d (Expected: -42)\n", ft_atoi("-42"));
     const char  *texto = "   -5325nb";
     printf("El string '%s' convertido a número es: %d\n", texto, ft_atoi(texto));
@@ -66,7 +66,7 @@ int main(void)
     // Pruebas de ft_memset
     char mem[10] = "abcdefghi";
     ft_memset(mem, 'x', 5);
-    printf("ft_memset('abcdefghi', 'x', 5) = %s (Expected: 'xxxxxefghi')\n", mem);
+    printf("ft_memset('abcdefghi', 'x', 5) = %s (Expected: 'xxxxxfghi')\n", mem);
 
     // Pruebas de ft_bzero
     char bzero_test[6] = "hello";
@@ -176,9 +176,11 @@ int main(void)
     free(trimmed);
 
     // Pruebas de ft_split
-    char **split_result = ft_split("chinimala", ' ');
-    printf("ft_split('hello world', ' ')[0] = %s (Expected: 'hello')\n", split_result[0]);
-    printf("ft_split('hello world', ' ')[1] = %s (Expected: 'world')\n", split_result[1]);
+    char **split_result = ft_split("  hola que tal total   ", ' ');
+    printf("----split----\n");
+    for (int i = 0; split_result[i] != NULL; i++)
+        printf("palabra[%d] = %s \n", i, split_result[i]);
+    
     // Liberar memoria de split
     for (int i = 0; split_result[i] != NULL; i++)
         free(split_result[i]);
@@ -188,6 +190,7 @@ int main(void)
     int numeros[] = {1234, -5678, 0, 42, -2147483648};
     char *resultado;
     int i;
+    printf("----itoa----\n");
     for (i = 0; i < 5; i++)
     {
         resultado = ft_itoa(numeros[i]);
